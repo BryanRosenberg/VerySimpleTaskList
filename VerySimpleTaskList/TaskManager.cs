@@ -103,7 +103,29 @@ namespace VerySimpleTaskList
             Console.WriteLine("What is your next task?");
 
             string description = GetStringFromUser();
-            Task newTask = new Task(description);
+
+            while (description.Length < 1)
+            {
+                Console.WriteLine("Empty description. Please try again.");
+                description = GetStringFromUser();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Will the task have a reminder?");
+            string reminderResponse = GetStringFromUser();
+
+            Task newTask;
+            if (reminderResponse == "yes")
+            {
+                Console.WriteLine();
+                Console.WriteLine("How many hours will the reminder be?");
+                int reminderHours = GetNumberFromUser();
+                newTask = new TaskWithReminder(description, reminderHours);
+            }
+            else
+            {
+                newTask = new Task(description);
+            }
             _tasks.Add(newTask);
         }
 
