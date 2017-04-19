@@ -37,6 +37,10 @@ namespace VerySimpleTaskList
                 {
                     DoListAllTasks();
                 }
+                else if (choice == 5)
+                {
+                    DoRemoveTask();
+                }
             }
         }
 
@@ -60,7 +64,7 @@ namespace VerySimpleTaskList
             Console.WriteLine("-------------------------");
             Console.Write("What task do you want to change? ");
 
-            int index = GetNumberFromUser();
+            int index = GetValidIndexFromUser();
 
             Console.Write("What is the new task's priority? ");
 
@@ -78,7 +82,7 @@ namespace VerySimpleTaskList
             Console.WriteLine("-------------------------");
             Console.Write("What task did you complete? ");
 
-            int index = GetNumberFromUser();
+            int index = GetValidIndexFromUser();
             _tasks[index].MarkCompleted();
         }
 
@@ -103,6 +107,24 @@ namespace VerySimpleTaskList
             _tasks.Add(newTask);
         }
 
+        private void DoRemoveTask()
+        {
+            Console.Clear();
+            Console.WriteLine("REMOVE A TASK");
+            Console.WriteLine("-------------------------");
+            PrintNumberedTaskList();
+            Console.WriteLine("-------------------------");
+            Console.Write("What task do you want to remove? ");
+
+            int index = GetValidIndexFromUser();
+
+            //if (index >= 0 && index < _tasks.Count)
+            //{
+            _tasks.RemoveAt(index);
+            //}
+            
+        }
+
         private string GetStringFromUser()
         {
             return Console.ReadLine();
@@ -114,15 +136,30 @@ namespace VerySimpleTaskList
             return int.Parse(input);
         }
 
+        private int GetValidIndexFromUser()
+        {
+            int index = GetNumberFromUser();
+
+            while (index < 0 || index >= _tasks.Count)
+            {
+                Console.WriteLine("Invalid index. Please try again.");
+                index = GetNumberFromUser();
+            }
+
+            return index;
+        }
+
         private void ShowMenu()
         {
             Console.Clear();
             Console.WriteLine("TASK MANAGEMENT!");
+            Console.WriteLine($"Task count: {_tasks.Count}");
             Console.WriteLine("-------------------------");
             Console.WriteLine("1. Add a task");
             Console.WriteLine("2. Mark a task complete");
             Console.WriteLine("3. Set a task's priority");
             Console.WriteLine("4. List the tasks");
+            Console.WriteLine("5. Remove a task");
             Console.WriteLine();
             Console.WriteLine("0. Exit");
             Console.WriteLine("-------------------------");

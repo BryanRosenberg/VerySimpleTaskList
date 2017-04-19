@@ -24,7 +24,7 @@ namespace VerySimpleTaskList
             _completed = true;
         }
 
-        public string DescribeYourself()
+        public virtual string DescribeYourself()
         {
                         // This is called "string interpolation"
             string me = $"I am a task to {_description} with priority {_priority}";
