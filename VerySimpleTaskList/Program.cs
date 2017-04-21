@@ -6,7 +6,7 @@ namespace VerySimpleTaskList
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome, Bryan!");
+            Console.WriteLine("Welcome, Bryan, again!");
             TaskManager manager = new TaskManager();
             manager.Run();
         }
